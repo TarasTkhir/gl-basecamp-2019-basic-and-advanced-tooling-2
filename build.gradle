@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id "org.springframework.boot" version "2.1.2.RELEASE"
+}
+
+group 'com.taras.homework'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version: '11.0.2'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+class JavaBC extends DefaultTask {
+    String message
+    String message1
+
+    @TaskAction
+    void sayName() {
+        println "${message}, ${message1}!"
+    }
+}
+
+tasks.register("say_name", JavaBC) {
+    group = 'JavaBC'
+    description = 'Make custom task'
+    message = 'Taras'
+    message1 = 'JavaBC'
+}
+task Test {
+    doFirst {
+        println 'This is executed first during the execution phase.'
+    }
+    doLast {
+        println 'This is executed last during the execution phase.'
+    }
+    println 'This is executed during the configuration phase.'
+}
